@@ -1,0 +1,357 @@
+campaignTrail_temp.election_json = JSON.parse("[{\"model\": \"campaign_trail.election\", \"pk\": 9, \"fields\": {\"year\": 2000, \"summary\": \"<p>Two years ago, President Barack Obama was elected, under the promise of Hope and Change, from the economic woes facing America. With Obama’s victory, the Democratic Party climbed to 257 seats in the House, and 59 seats in the Senate. With the most progressive Congress in recent times, the Democrats are poised to bring Obama’s change to fruition. Meanwhile, the GOP prepares to strike back to a level they hope will match 1994, and will use the upcoming special elections to test-drive.</p><p>The Republicans are hoping to channel the nascent Tea Party organizing into results, while the Democrats must defend their record and make some hard decisions. With 435 seats up, every victory will count. Can the change of Obama’s program continue, or will the GOP rally themselves to another Republican Revolution?</p>\", \"image_url\": \"https://i.imgur.com/UWQiJDl.jpeg\", \"winning_electoral_vote_number\": 218, \"advisor_url\": \"https://i.imgur.com/MKIIF8O.jpeg\", \"recommended_reading\": \"<h4 style=\\\"margin-top: 0.5em;\\\">The Florida Recount / 2000 Election</h4><a href=\\\"http://www.amazon.com/exec/obidos/ASIN/B000RH0DVM/amhius20-20\\\" target=\\u201d_blank\\u201d>Al Gore Concedes the 2000 Election</a>\", \"has_visits\": 1, \"no_electoral_majority_image\": \"https://i.imgur.com/VZLbQHZ.png\"}}]");
+function addDynamicCSS() {
+    var css = `
+        .inner_window_question h3 .mytooltip{
+            background-color: lightpink;
+        }
+
+        .mytooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            background-color: lightcoral;
+        }
+
+        .mytooltip .mytooltiptext {
+            width: 240px;
+            Background-color: lightcoral;
+            color: black;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 99;
+            bottom: 20%;
+            left: 20%;
+            margin-left: -90px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 1px solid black;
+            pointer-events: none;
+            font-size: 13px !important;
+            line-height: 1.5em !important;
+            font-weight: normal !important;
+            font-style: normal !important;
+        }
+
+        .mytooltip .mytooltiptext img {
+            max-width: 240px;
+            height: auto;
+        }
+
+        .mytooltip:hover .mytooltiptext {
+            opacity: 1;
+            transition-delay: 0.5s;
+        }
+    `;
+
+    var styleElem = document.createElement('style');
+    styleElem.type = 'text/css';
+    
+    styleElem.appendChild(document.createTextNode(css));
+    
+    document.head.appendChild(styleElem);
+}
+
+document.getElementById("header").src = "https://i.imgur.com/tlRePhd.png"
+
+
+addDynamicCSS();
+
+tooltipList = [
+    {searchString: "Cheney", explanationText: "Testtesttest"},
+    {searchString: "NRCC", explanationText: "The Hill committee that seeks to elect Republicans to the House. Currently chaired by Pete Sessions."},
+    {searchString: "DCCC", explanationText: "The Hill committee that seeks to elect Democrats to the house. Currently chaired by Chris van Hollen."},
+    {searchString: "Manning", explanationText: "Chelsea Manning, War on Terror whistleblower. Progressives and libertarians see her as a hero, while conservatives and the Obama Administration see her as a liability. Came out as transgender in 2013."},
+    {searchString: "Affordable Care Act", explanationText: "Also known as Obamacare, this act expanded health insurance greatly throughout the country."},
+    {searchString: "Dodd-Frank", explanationText: "Act sponsored by Senator Chris Dodd (D-CT) and Congressman Barney Frank (D-MA) greatly expanding oversight of banks, in the wake of the 2008 financial crisis."},
+    {searchString: "Don’t Ask, Don’t Tell", explanationText: "Rule set by the Clinton administration in 1993, prohibiting discrimination in the military against closeted Lesbian, Gay or Bisexual people, while forbidding openly Lesbian, Gay or Bisexual people from military service. Controversial for obvious reasons."},
+    {searchString: "David Paterson", explanationText: "<img src=https://i.imgur.com/omK8Vbt.jpeg>Embattled Governor of New York, under investigation for witness tampering in a staffer’s domestic abuse case, and solicitation involving Yankees tickets."},
+    {searchString: "Lingle", explanationText: "<img src=https://i.imgur.com/WZOTDAw.jpeg>Linda Lingle, outgoing GOP Governor of Hawaii. Walking testament to the lesser importance of partisan leanings in Governor’s races."},
+    {searchString: "Eric", explanationText: "<img src=https://i.imgur.com/3YAmb9j.jpeg>House Minority Whip Eric Cantor, your trusted right-hand man."},
+    {searchString: "Barney Frank", explanationText: "<img src=https://i.imgur.com/sft0qga.jpeg>Barney Frank, Dem Congressman for Massachusetts since 1981. Is gay, did… progressive politics."},
+    {searchString: "Chris Dodd", explanationText: "<img src=https://i.imgur.com/CJAzIdw.jpeg>Chris Dodd, retiring Dem Senator for Connecticut. The financial sector’s strongest soldier."},
+    {searchString: "Cao", explanationText: "<img src=https://i.imgur.com/tfelTz2.jpeg>Joseph Cao (Cao Quang Ánh), GOP Congressman for downtown New Orleans. Ran 25 points ahead of McCain in 2008, thanks to incumbent Bill Jefferson being under investigation for bribery. Can he win again?"},
+    {searchString: "Castle", explanationText: "<img src=https://i.imgur.com/FDNXQGl.jpeg>Mike Castle, longtime GOP Congressman for Delaware. Retiring, after losing the Special Election Primary for Joe Biden’s Senate seat to a perennial Tea Party conservative."},
+    {searchString: "Jones", explanationText: "<img src=https://i.imgur.com/EMUWIGN.jpeg>Walter Jones Jr, Moderate GOP Congressman for North Carolina, son of former Dem Congressman Walter Jones. "},
+    {searchString: "Reichert", explanationText: "<img src=https://i.imgur.com/O805D9W.jpeg>Dave Reichert, GOP Congressman for the Seattle suburbs. Seen as an electoral Houdini; winning by a couple of points in 2004, 2006 and 2008."},
+    {searchString: "Rush Limbaugh", explanationText: "<img src=https://i.imgur.com/O6DvqmT.jpeg>Rush Limbaugh, long-time talk radio host and controversial conservative firebrand. "},
+    {searchString: "Mark Levin", explanationText: "<img src=https://i.imgur.com/LhNAVRq.jpeg>Mark Levin, not as long-time talk radio host and controversial conservative firebrand. Likud ambassador to the American Conservative Movement. "},
+    {searchString: "Bill O’Reiley", explanationText: "<img src=https://i.imgur.com/euoz94h.jpeg>Bill O’Reiley,  Fox News Primetime star, author of books about famous deaths, and creep around women."},
+    {searchString: "Mark Kirk", explanationText: "<img src=https://i.imgur.com/8EfO4Ka.jpeg>Mark Kirk, US Representative and Republican nominee for President Obama’s old Senate seat. Always says that he’s a fiscal conservative and a social moderate."},
+        
+];
+
+
+campaignTrail_temp.candidate_json = JSON.parse("[{\"model\": \"campaign_trail.candidate\", \"pk\": 77, \"fields\": {\"first_name\": \"The\", \"last_name\": \"GOP\", \"election\": 9, \"party\": \"Republican\", \"state\": \"-\", \"priority\": 1, \"description\": \"<p>The GOP enters 2010 with a base angry and ready to win. Sharp congressional losses in the past 4 years have left the party with a 79 seat difference in the house, and the Dems have the supermajority. The Democrats have the mandate, and the Grand Ole Party can do little other than wait. Once feared, the liberal mass is about to enact social programs; the likes of which haven’t been seen since LBJ. To win, many look to the past.</p><p>Looking for a repeat of the events of 16 years ago, the party is poised for gains. Can they galvanize discontent over Government spending and the strongest Dem Government levels since Gingrich’s “Contract?” Or will they go the way of the party’s 1920s support?</p>\", \"color_hex\": \"#FF0000\", \"secondary_color_hex\": \"#FFA0A0\", \"is_active\": 1, \"image_url\": \"https://i.imgur.com/7XJcedx.png\", \"electoral_victory_message\": \"<h3>House Minority Leader Boehner remarks at GOP Celebration, November 2</h3><p>“I want to thank all of our candidates, supporters and all who worked towards tonight’s events. The American people’s voices were heard tonight. Frankly, this is not a time for celebration. Not when 1 in 10 Americans is out of work. Not when we’ve buried our children under a mountain of debt. Not when our congress is held in such low esteem. This is a time to roll up our sleeves. A time to look forward with determination, and to take the first steps to building a better future for our kids and grandkids.”</p>\", \"electoral_loss_message\": \"<h3>Despite everything, the Obama Majority holds.</h3><p>Everyone in the House GOP Leadership team is baffled. They knew the Senate would be a tall order with Reid’s sheer majority, but the House seemed like a sure thing.</p><p>Conservative commentators from Limbaugh to Levin to half the Fox News lineup is calling for heads on plates, and who could blame them? They expected gains from coast to coast, especially after Massachusetts and Honolulu flipped. They expected a comeback for the ages, which never materialized. Meanwhile, the Constitution Caucus plans just that. Conservative firebrand Scott Garrett for Whip, and your old rival Mike Pence for Speaker.</p>\", \"no_electoral_majority_message\": \"<h3>For the first time since 1916, no Party has achieved a house majority.</h3><p> “This is Congressman Cliff Stearns. Is Dr. Schonberg available?” “Speaking. Come to demand a concession?” “As much as I would like it to be the case, I’m actually here to concede to you.” “You better not be pulling my leg-” Also, neither Republicans nor Democrats reached 218 Seats in the house. Word from the caucuses is that you will be the kingmaker in this new complicated congress. Good Luck.”</p><p>What a week, to go from a small, anti-corruption protest vote to a Congressman-Elect. This was through legitimate and non-corrupt reasons and not divine intervention, <em>right?</em></p>\", \"description_as_running_mate\": \"''\", \"candidate_score\": 1.0}}, {\"model\": \"campaign_trail.candidate\", \"pk\": 78, \"fields\": {\"first_name\": \"The\", \"last_name\": \"Democrats\", \"election\": 9, \"party\": \"Democrat\", \"state\": \"-\", \"priority\": 2, \"description\": \"<p>257 seats in the house. 60 seats in the senate. The Democrats are 1 seat away from their 1993-94 high in the House, and 1 seat away from their Carter-era Senate high, back when Bob Byrd ran the caucus. However, like 94, the right is gunning for gains, and just might get that again.</p><p>The Democrats of the 111th Congress have a window of opportunity to earn their place in the history books. They have ample opportunity to push for the change that President Obama spoke of two years ago. The right will be as combative on Government Spending as ever. The Democrats must balance spending and saving - or cast one overboard entirely.</p>\", \"color_hex\": \"#0000FF\", \"secondary_color_hex\": \"#90C0FF\", \"is_active\": 1, \"image_url\": \"https://i.imgur.com/j0yO4Zt.png\", \"electoral_victory_message\": \"<h3>The Obama Majority holds!</h3><p>Attacks after attacks, poll after poll, and special election after special election. Things were looking grim. It seemed like it would only be a matter of how many they would have left.</p><p>193. 194. 195. Okay, not terrible. The Senate was just called, which proves to be quite the relief.</p><p> 199. 200. 201. A 30 seat majority could be workable.</p><p> 209. 210. It's still looking possible.</p><p> 215. 216. 217. Projected!</p><p> Despite everything, it happened. President Obama called, and congratulated you for holding on. 2 more years for change are on the horizon!</p>\", \"electoral_loss_message\": \"<h3>Press Conference with President Barack Obama, November 3.</h3><p>”Some election nights are more fun than others. Some are exhilarating, some are humbling. I did a lot of talking and listening. Yesterday’s vote confirmed that people are frustrated. Frustrated with the pace of our recovery, jobs, paychecks, opportunities. The men and women who sent us here expect Washington to work for them. They want to know that their tax dollars are being spent wisely and not wastefully. Over the last two years, we’ve made progress. Clearly, too many Americans haven’t felt the progress. As President, I take responsibility for that.” - Barack Obama</p>\", \"no_electoral_majority_message\": \"<h3>For the first time since 1916, no Party has achieved a house majority.</h3><p> “This is Congressman Cliff Stearns. Is Dr. Schonberg available?” “Speaking. Come to demand a concession?” “As much as I would like it to be the case, I’m actually here to concede to you.” “You better not be pulling my leg-” Also, neither Republicans nor Democrats reached 218 Seats in the house. Word from the caucuses is that you will be the kingmaker in this new complicated congress. Good Luck.”</p><p>What a week, to go from a small, anti-corruption protest vote to a Congressman-Elect. This was through legitimate and non-corrupt reasons and not divine intervention, <em>right?</em></p>\", \"description_as_running_mate\": \"''\", \"candidate_score\": 1.0}}, {\"model\": \"campaign_trail.candidate\", \"pk\": 79, \"fields\": {\"first_name\": \"the\", \"last_name\": \"Undecided\", \"election\": 9, \"party\": \"-\", \"state\": \"Connecticut\", \"priority\": 3, \"description\": \"<p>The other candidates</p><p>The bite of 87.</p>\", \"color_hex\": \"#00C100\", \"secondary_color_hex\": \"#A1FFA1\", \"is_active\": 0, \"image_url\": \"/static/images/ralph-nader-2000.jpg\", \"electoral_victory_message\": \"<h3>Congratulations! You have won the 2010 election.</h3><p>This was definitely not supposed to happen. Good luck!</p>\", \"electoral_loss_message\": \"<h3>Lmao.</p>\", \"no_electoral_majority_message\": \"<h3>A little trolling.</h3><p>Good job.</p>\", \"description_as_running_mate\": \"''\", \"candidate_score\": 1.0}}, {\"model\": \"campaign_trail.candidate\", \"pk\": 80, \"fields\": {\"first_name\": \"Other\", \"last_name\": \"Candidates\", \"election\": 9, \"party\": \"Reform\", \"state\": \"Virginia\", \"priority\": 4, \"description\": \"''\", \"color_hex\": \"#FFFF00\", \"secondary_color_hex\": \"#FFFFC0\", \"is_active\": 0, \"image_url\": \"''\", \"electoral_victory_message\": \"''\", \"electoral_loss_message\": \"''\", \"no_electoral_majority_message\": \"''\", \"description_as_running_mate\": \"''\", \"candidate_score\": 1.0}}, {\"model\": \"campaign_trail.candidate\", \"pk\": 81, \"fields\": {\"first_name\": \"John\", \"last_name\": \"Boehner\", \"election\": 9, \"party\": \"Republican\", \"state\": \"OH-08\", \"priority\": 5, \"description\": \"''\", \"color_hex\": \"#FF0000\", \"secondary_color_hex\": \"#FFA0A0\", \"is_active\": 0, \"image_url\": \"https://i.imgur.com/sRLMceP.jpg\", \"electoral_victory_message\": \"''\", \"electoral_loss_message\": \"''\", \"no_electoral_majority_message\": \"''\", \"description_as_running_mate\": \"<p><i>“Just because you have a right to do something in America does not mean it is the right thing to do. ”</i></p><p>John Boehner is the incumbent House Minority Leader, having taken the position in 2008 after Dennis Hastert stepped away from leading the GOP Caucus. He is a cunning politician and tactician, who is a strong orator and can get the party in line.<br>Before becoming leader, he was one of the more conservative members of the caucus, but currently works to negotiate when he can with the Democrats. Two years ago, his first election as House GOP Leader proved disastrous, regressing to a 79 seat difference with the Democrats. If he can handle the current wave of conservative discontent, he can make up that ground and more.</p>\", \"candidate_score\": 0.0}}, {\"model\": \"campaign_trail.candidate\", \"pk\": 85, \"fields\": {\"first_name\": \"Nancy\", \"last_name\": \"Pelosi\", \"election\": 9, \"party\": \"Democrat\", \"state\": \"CA-08\", \"priority\": 9, \"description\": \"''\", \"color_hex\": \"#0000FF\", \"secondary_color_hex\": \"#90C0FF\", \"is_active\": 0, \"image_url\": \"https://i.imgur.com/aZxKQBZ.jpg\", \"electoral_victory_message\": \"''\", \"electoral_loss_message\": \"''\", \"no_electoral_majority_message\": \"''\", \"description_as_running_mate\": \"<p><i>“You go through the gate. If the gate’s closed you go over the fence. If the fence is too high, we’ll pole-vault. If that doesn’t work, we’ll parachute in. But we are going to get health care reform passed for the American people.”</i></p><p>Nancy Pelosi is the Speaker of the House; the first woman to be elected as such. Having taken caucus leadership after Dick Gephardt stepped away from the role in 2003, Pelosi has been a strong Liberal, who has been able to shape congress into change – the same change that drove President Obama to the presidency. Congress is at its highest Democratic numbers since 1992, leaving ample room for action. However, much like 1992, the GOP is gunning for the control, and all hands must be on deck to stay afloat.</p>\", \"candidate_score\": 0.0}}, {\"model\": \"campaign_trail.candidate\", \"pk\": 89, \"fields\": {\"first_name\": \"Test\", \"last_name\": \"McTest\", \"election\": 9, \"party\": \"Green\", \"state\": \"Minnesota\", \"priority\": 13, \"description\": \"''\", \"color_hex\": \"#00C100\", \"secondary_color_hex\": \"#A1FFA1\", \"is_active\": 0, \"image_url\": \"/static/images/winona-laduke-2000.jpg\", \"electoral_victory_message\": \"''\", \"electoral_loss_message\": \"''\", \"no_electoral_majority_message\": \"''\", \"description_as_running_mate\": \"<p>Might as well put something cryptic oooooooo</p>\", \"candidate_score\": 0.0}}, {\"model\": \"campaign_trail.candidate\", \"pk\": 90, \"fields\": {\"first_name\": \"Ezola\", \"last_name\": \"Foster\", \"election\": 9, \"party\": \"Reform\", \"state\": \"California\", \"priority\": 14, \"description\": \"''\", \"color_hex\": \"#FFFF00\", \"secondary_color_hex\": \"#FFFFC0\", \"is_active\": 0, \"image_url\": \"''\", \"electoral_victory_message\": \"''\", \"electoral_loss_message\": \"''\", \"no_electoral_majority_message\": \"''\", \"description_as_running_mate\": \"''\", \"candidate_score\": 0.0}}]");
+campaignTrail_temp.running_mate_json = JSON.parse("[{\"model\": \"campaign_trail.running_mate\", \"pk\": 47, \"fields\": {\"candidate\": 80, \"running_mate\": 90}}, {\"model\": \"campaign_trail.running_mate\", \"pk\": 56, \"fields\": {\"candidate\": 79, \"running_mate\": 89}}, {\"model\": \"campaign_trail.running_mate\", \"pk\": 76, \"fields\": {\"candidate\": 78, \"running_mate\": 85}}, {\"model\": \"campaign_trail.running_mate\", \"pk\": 106, \"fields\": {\"candidate\": 77, \"running_mate\": 81}}]");
+campaignTrail_temp.opponents_default_json = JSON.parse("[{\"election\": 9, \"candidates\": [77, 78, 79, 80]}]");
+campaignTrail_temp.opponents_weighted_json = JSON.parse("[{\"election\": 9, \"candidates\": [78, 77, 79, 80]}]");    	
+quotes = [`"This is a Political Insidersaurus, Barbara Mikulski; inhabiting Washington for many years." - Eric Wargotz`, `"Guns, Prostitution, Murder. That’s who Allen West rides with." - DCCC`, `"Let me be clear..." - Barack Obama`, `"This lobbyist, this K Street whore, is trying to teach me about economics." - Alan Grayson`, `"Today, the federal government is simply trying to do too much." - Bob McDonnell`, ]
+customquote = quotes[Math.floor((Math.random() * quotes.length))]
+
+corrr="\n<h2>THE ROAD TO 218</h2><font id='wittyquote' size='4' color='white'><em>" + customquote + "</em></font>"
+
+campaignTrail_temp.difficulty_level_json = JSON.parse("[{\"model\": \"campaign_trail.difficulty_level\", \"pk\": 1, \"fields\": {\"name\": \"Cakewalk\", \"multiplier\": 1.4}}, {\"model\": \"campaign_trail.difficulty_level\", \"pk\": 2, \"fields\": {\"name\": \"Very Easy\", \"multiplier\": 1.25}}, {\"model\": \"campaign_trail.difficulty_level\", \"pk\": 3, \"fields\": {\"name\": \"Easy\", \"multiplier\": 1.1}}, {\"model\": \"campaign_trail.difficulty_level\", \"pk\": 4, \"fields\": {\"name\": \"Normal\", \"multiplier\": 0.97}}, {\"model\": \"campaign_trail.difficulty_level\", \"pk\": 5, \"fields\": {\"name\": \"Hard\", \"multiplier\": 0.92}}, {\"model\": \"campaign_trail.difficulty_level\", \"pk\": 6, \"fields\": {\"name\": \"Impossible\", \"multiplier\": 0.86}}, {\"model\": \"campaign_trail.difficulty_level\", \"pk\": 7, \"fields\": {\"name\": \"Unthinkable\", \"multiplier\": 0.8}}, {\"model\": \"campaign_trail.difficulty_level\", \"pk\": 8, \"fields\": {\"name\": \"Blowout\", \"multiplier\": 0.72}}, {\"model\": \"campaign_trail.difficulty_level\", \"pk\": 9, \"fields\": {\"name\": \"Disaster\", \"multiplier\": 0.64}}]");
+nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#D90000"
+nct_stuff.themes[nct_stuff.selectedTheme].coloring_window = "#D90000"
+$(".container")[0].style.backgroundColor = "#0000D9"
+campaignTrail_temp.credits = 'ListMan38'
+campaignTrail_temp.global_parameter_json = JSON.parse("[{\"model\": \"campaign_trail.global_parameter\", \"pk\": 1, \"fields\": {\"vote_variable\": 1.125, \"max_swing\": 0.12, \"start_point\": 0.94, \"candidate_issue_weight\": 10.0, \"running_mate_issue_weight\": 3.0, \"issue_stance_1_max\": -0.71, \"issue_stance_2_max\": -0.3, \"issue_stance_3_max\": -0.125, \"issue_stance_4_max\": 0.125, \"issue_stance_5_max\": 0.3, \"issue_stance_6_max\": 0.71, \"global_variance\": 0.01, \"state_variance\": 0.005, \"question_count\": 25, \"default_map_color_hex\": \"#C9C9C9\", \"no_state_map_color_hex\": \"#999999\"}}]");
+campaignTrail_temp.temp_election_list = [{"id": 9, "year": 2000, "is_premium": 0, "display_year": "2010 House"}];
+e.shining = true
+
+e.shining_info = [
+    {
+        pk: 9,
+        candidate: 77,
+        fundraising_effect: 1,
+        ad_effect: 1,
+        opponent_visit_effect: 1,
+        staff: [
+            {
+                pk: 6005,
+                name: "James O’Keefe",
+                image: "https://i.imgur.com/0s1JASU.jpeg",
+                description: "<p><em>Spin Doctor</em>: Opponent's visit effectiveness is cut in half.</p><p>Chairman of the fledgeling Conservative group Project Veritas, known for illicitly taking video of Democratic operatives and editing them in a way unfavorable to the liberal target. Most recently had run-ins with the law over entering Senator Mary Landrieu’s (D-LA) office under false pretenses. </p>",
+                cost: 25000000,
+                hired: false,
+                execute: () => {
+                    let our_info = campaignTrail_temp.shining_info.find(f=>f.pk === e.election_id&&f.candidate===e.candidate_id);
+                    our_info.opponent_visit_effect *= 0.5;
+                }
+            },
+            {
+                pk: 6001,
+                name: "Michael Steele",
+                image: "https://i.imgur.com/Rb8Atqx.jpeg",
+                description: "<p><em>Kingmaker</em>: Upon being hired your relationship with all lobbies with which you already have a positive relationship will be increased by 10.</p><p>The Chairman of the RNC, Michael Steele is a skilled operative and a strong speaker. He is willing to help out in whatever way he can, and working with lobbies is a forte of his.</p>",
+                cost: 10000000,
+                hired: false,
+                execute: () => {
+                    let our_info = campaignTrail_temp.shining_info.find(f=>f.pk === e.election_id&&f.candidate===e.candidate_id);
+                    our_info.lobby.forEach(f=>{
+                        if (f.opinion > 50) {
+                            f.opinion += 10;
+                            f.opinion = Math.min(100, f.opinion);    
+                        }
+                    });
+                }
+            },
+            {
+                pk: 6004,
+                name: "Rush Limbaugh",
+                image: "https://i.imgur.com/O6DvqmT.jpg",
+                description: "<p><em>Media Manager</em>: Increases the effectiveness of ad campaigns.</p><p>Since his show began syndication in the 1980s, Rush Limbaugh has been a firebrand and a mouthpiece for American Conservatives. He’s made no shortage of controversial statements, and he’s had his fair share of criticisms of you and other GOP Leaders.  Even if there’s some personal animosity between yourself and him, he’s willing to use his show to do whatever it takes.</p>",
+                cost: 15000000,
+                hired: false,
+                execute: () => {
+                    let our_info = campaignTrail_temp.shining_info.find(f=>f.pk === e.election_id&&f.candidate===e.candidate_id);
+                    our_info.ad_effect *= 1.2;
+                }
+            },
+            {
+                pk: 6006,
+                name: "Scott Brown",
+                image: "https://i.imgur.com/1YTLYa6.png",
+                description: "<p><em>Surrogate</em>: Provides a small boost in New England.</p><p>Scott Brown is the Junior US Senator for Massachusetts; having recently won the special election to replace the late Ted Kennedy. Willing to contribute to campaign efforts.</p>",
+                cost: 15000000,
+                hired: false,
+                execute: () => {
+                    const states_list = ["NH_2", "NH_1"]; 
+                    for (let i in states_list) {
+                        const state = e.states_json.find(f=>f.fields.name===states_list[i]);
+                        const state_mult = e.candidate_state_multiplier_json.find(f=>f.fields.state === state.pk && f.fields.candidate === e.candidate_id);
+                        state_mult.fields.state_multiplier *= 1.05
+                    }
+                }
+            },
+            {
+                pk: 6000,
+                name: "Eric Cantor",
+                image: "https://i.imgur.com/3YAmb9j.jpg",
+                description: "<p><em>Loyalist</em>: Upon being hired, the Loyalist provides a small, permanent boost to all positive global effects.</p><p>Eric Cantor is the House Minority Whip, and a close colleague of yours in the House.  He knows, more than anybody, the successes of the GOP House, and can help you press your case. He can also keep the caucus in line. As such, he would be valuable to integrate into campaign efforts.</p>",
+                cost: 20000000,
+                hired: false,
+                execute: () => {
+                    e.answer_score_global_json.forEach(f=>{if(f.fields.global_multiplier > 0)f.fields.global_multiplier*=1.1});
+                }
+            },
+            {
+                pk: 6001,
+                name: "Newt Gingrich",
+                image: "https://i.imgur.com/eZUbF58.jpeg",
+                description: "<p><em>Speechwriter</em>: Provides a small, permanent boost to all positive statewide effects.</p><p>Newt Gingrich knows how to make a comeback in the house, as evidenced by the results of 16 years ago. He is up for lending a hand to a repeat of his Revolution. Sure, he’s had his ethics issues, and may be seeking goodwill for a go at the White House, but no matter.</p>",
+                cost: 20000000,
+                hired: false,
+                execute: () => {
+                    e.answer_score_state_json.forEach(f=>{if(f.fields.state_multiplier > 0)f.fields.state_multiplier*=1.1});
+                }
+            },
+            {
+                pk: 6004,
+                name: "Barry Jackson",
+                image: "https://i.imgur.com/yylr3ZK.jpeg",
+                description: "<p><em>Firebrand</em>: Provides a permanent increase to the effectiveness of visits.</p><p>One of your closer advisors since Paula Nowakowski (God rest her soul) passed away. Has a good eye for on-the-ground happenings, and where you can be of use.</p>",
+                cost: 23000000,
+                hired: false,
+                execute: () => {
+                    e.shining_data.visit_multiplier += 0.2;
+                }
+            },
+        ],
+        lobby: [
+            {
+                pk: 7000,
+                name: "RNC",
+                image: "https://i.imgur.com/7XJcedx.png",
+                description: "Party funding. Spend Wisely!",
+                issue_tie: 31,
+                issue_link: score => score * -1,
+                fund_base: 1800000,
+                opinion: 20
+            },
+            {
+                pk: 7001,
+                name: "Koch Brothers",
+                image: "https://i.imgur.com/sP1Uagc.jpeg",
+                description: "Known for Oil, the Chemicals Industry, and GOP Donations.",
+                issue_tie: 31,
+                issue_link: score => score * -1,
+                fund_base: 400000,
+                opinion: 25
+            }
+        ]
+    },
+    {
+        pk: 9,
+        candidate: 78,
+        fundraising_effect: 1,
+        ad_effect: 1,
+        opponent_visit_effect: 1,
+        staff: [
+            {
+                pk: 6006,
+                name: "Barack Obama",
+                image: "https://i.imgur.com/DmlfKH7.jpeg",
+                description: "<p><em>Fundraiser</em>: Permanently increases the effectiveness of fundraising.</p><p>Needless to say, the President himself will be key to fundraising, and he would be happy to help.</p>",
+                cost: 15000000,
+                hired: false,
+                execute: () => {
+                    let our_info = campaignTrail_temp.shining_info.find(f=>f.pk === e.election_id&&f.candidate===e.candidate_id);
+                    our_info.fundraising_effect *= 1.2;
+                }
+            },
+            {
+                pk: 6000,
+                name: "Steny Hoyer",
+                image: "https://i.imgur.com/CHEl1Nz.jpeg",
+                description: "<p><em>Loyalist</em>: Upon being hired, the Loyalist provides a small, permanent boost to all positive global effects.</p><p>Steny Hoyer is the House Majority Leader, and a close colleague of yours in the House.  He knows, more than anybody, the successes of the Democratic Congress, and can help you press your case. He would be very helpful in campaign efforts.</p>",
+                cost: 20000000,
+                hired: false,
+                execute: () => {
+                    e.answer_score_global_json.forEach(f=>{if(f.fields.global_multiplier > 0)f.fields.global_multiplier*=1.1});
+                }
+            },
+            {
+                pk: 6003,
+                name: "Tim Kaine",
+                image: "https://i.imgur.com/8In2Mku.jpeg",
+                description: "<p><em>Workhorse</em>: Upon being hired, the Workhorse will max out your relationship with the lobby mentioned in his description.</p><p>Tim Kaine is the former governor of Virginia, and chairs the DNC. He’s a good friend, and ready to splash the cash for 2 more years of Democratic control.</p>",
+                cost: 15000000,
+                hired: false,
+                execute: () => {
+                    let our_info = campaignTrail_temp.shining_info.find(f=>f.pk === e.election_id&&f.candidate===e.candidate_id);
+                    our_info.lobby.find(f=>f.name==="Nanking Group").opinion = 100;
+                }
+            },
+            {
+                pk: 6004,
+                name: "Joe Biden",
+                image: "https://i.imgur.com/Tx9pqvv.jpeg",
+                description: "<p><em>Firebrand</em>: Provides a permanent increase to the effectiveness of visits.</p><p>The Vice President, and previously Senator from 1973 to his inauguration. Can really butter up the base, and is generally liked. Some say he’s old, but he seems to have another 14 years left in him.</p>",
+                cost: 23000000,
+                hired: false,
+                execute: () => {
+                    e.shining_data.visit_multiplier += 0.2;
+                }
+            },
+            {
+                pk: 6005,
+                name: "Bob Casey Jr.",
+                image: "https://i.imgur.com/pxvWPO2.jpeg",
+                description: "<p><em>Smooth Talker</em>: Permanently improves your RNG.</p><p>Casey is the freshman Senator from Pennsylvania. He was an early endorser of President Obama in the 2008 primaries, making him a close friend of the White House.  He’s a well respected face, and can help you run a spirited campaign. Admires past seatholder Harris Wofford, particularly for his stances on Eastern Europe.</p>",
+                cost: 20000000,
+                hired: false,
+                execute: () => {
+                    F = (cand) => {
+                        var e, t, i;
+                        do {
+                            i = (e = 2 * Math.random() - 1) * e + (t = 2 * Math.random() - 1) * t
+                        } while (i >= 1 || 0 == i);
+                        if (cand === campaignTrail_temp.candidate_id)
+                            return (e * Math.sqrt(-2 * Math.log(i) / i) + 0.5);
+                        else
+                            return (e * Math.sqrt(-2 * Math.log(i) / i) - 0.25);
+                    }
+                }
+            },
+            {
+                pk: 6006,
+                name: "Jay Nixon",
+                image: "https://i.imgur.com/sqZIUWk.jpeg",
+                description: "<p><em>Surrogate</em>: Provides a small boost in the Midwest</p><p>Jay Nixon is the current governor of Missouri. He can help out when he can, and can help press members’ moderate credentials, if that’s your goal.</p>",
+                cost: 15000000,
+                hired: false,
+                execute: () => {
+                    const states_list = ["MN_1", "MN_2"]; 
+                    for (let i in states_list) {
+                        const state = e.states_json.find(f=>f.fields.name===states_list[i]);
+                        const state_mult = e.candidate_state_multiplier_json.find(f=>f.fields.state === state.pk && f.fields.candidate === e.candidate_id);
+                        state_mult.fields.state_multiplier *= 1.05
+                    }
+                }
+            },
+            
+        ],
+        lobby: [
+            {
+                pk: 7002,
+                name: "DNC",
+                image: "https://i.imgur.com/j0yO4Zt.png",
+                description: "Party funding. Spend Wisely!",
+                issue_tie: 31,
+                issue_link: score => score * -1,
+                fund_base: 1800000,
+                opinion: 20
+            },
+            {
+                pk: 7003,
+                name: "George Soros",
+                image: "https://i.imgur.com/SrZ4PrH.jpeg",
+                description: "George Soros is the billionaire owner of an Investment firm. Often a punching bag by the right due to his mass funding of Democrats.",
+                issue_tie: 31,
+                issue_link: score => score * -1,
+                fund_base: 1400000,
+                opinion: 25
+            }
+        ]
+    }
+]
+
+e.opponent_visits = []
+
+/*
+F = (cand) => {
+    var e, t, i;
+    do {
+        i = (e = 2 * Math.random() - 1) * e + (t = 2 * Math.random() - 1) * t
+    } while (i >= 1 || 0 == i);
+    if (cand === campaignTrail_temp.candidate_id)
+        return (e * Math.sqrt(-2 * Math.log(i) / i) + 0.5);
+    else
+        return (e * Math.sqrt(-2 * Math.log(i) / i) - 0.25);
+}
+*/
+document.body.background = "https://i.imgur.com/EPB4pnC.jpeg"
+campaignTrail_temp.global_parameter_json = JSON.parse("[{\"model\": \"campaign_trail.global_parameter\", \"pk\": 1, \"fields\": {\"vote_variable\": 1.125, \"max_swing\": 0.0, \"start_point\": 1.00, \"candidate_issue_weight\": 10.0, \"running_mate_issue_weight\": 3.0, \"issue_stance_1_max\": -0.71, \"issue_stance_2_max\": -0.3, \"issue_stance_3_max\": -0.125, \"issue_stance_4_max\": 0.125, \"issue_stance_5_max\": 0.3, \"issue_stance_6_max\": 0.71, \"global_variance\": 0.0, \"state_variance\": 0.0, \"question_count\": 5, \"default_map_color_hex\": \"#C9C9C9\", \"no_state_map_color_hex\": \"#999999\"}}]");
